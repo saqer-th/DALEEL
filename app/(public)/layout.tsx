@@ -74,40 +74,55 @@ export default function PublicLayout({
             </main>
 
             {/* Enhanced Footer */}
-            <footer className="border-t border-slate-200 bg-white py-12">
+            <footer className="bg-slate-900 border-t border-slate-800 text-slate-300 py-12">
                 <div className="container mx-auto px-4">
                     <div className="grid md:grid-cols-4 gap-8 mb-8">
                         <div className="col-span-1 md:col-span-2">
                             <div className="flex items-center gap-2 mb-4">
-                                <div className="w-6 h-6 bg-slate-900 rounded flex items-center justify-center text-white">
-                                    <Globe2 size={14} />
+                                <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white shadow-lg shadow-blue-600/20">
+                                    <Globe2 size={18} />
                                 </div>
-                                <span className="font-bold text-lg text-slate-900">دليل للأعلام الذكي</span>
+                                <span className="font-bold text-xl text-white tracking-tight">
+                                    دليل <span className="text-blue-500">.</span>
+                                </span>
                             </div>
-                            <p className="text-slate-500 text-sm leading-relaxed max-w-xs">
-                                المنصة الوطنية الموحدة لرصد وتحليل ومتابعة المشهد الإعلامي السعودي باستخدام تقنيات الذكاء الاصطناعي.
+                            <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
+                                المنصة الوطنية الموحدة لرصد وتحليل ومتابعة المشهد الإعلامي السعودي باستخدام تقنيات الذكاء الاصطناعي، لتمكين صناع القرار من رؤية شاملة ودقيقة.
                             </p>
                         </div>
                         <div>
-                            <h4 className="font-bold text-slate-900 mb-4 text-sm">روابط سريعة</h4>
-                            <ul className="space-y-2 text-sm text-slate-500">
-                                <li><a href="/map" className="hover:text-blue-600 transition-colors">خريطة الإعلام</a></li>
-                                <li><a href="/verification" className="hover:text-blue-600 transition-colors">التحقق من المحتوى</a></li>
-                                <li><a href="/stats" className="hover:text-blue-600 transition-colors">مركز البيانات</a></li>
+                            <h4 className="font-bold text-white mb-6 text-sm flex items-center gap-2">
+                                <span className="w-1 h-4 bg-blue-500 rounded-full"></span> روابط سريعة
+                            </h4>
+                            <ul className="space-y-3 text-sm text-slate-400">
+                                <li><a href="/map" className="hover:text-white hover:translate-x-1 transition-all inline-block">خريطة الإعلام</a></li>
+                                <li><a href="/verification" className="hover:text-white hover:translate-x-1 transition-all inline-block">التحقق من المحتوى</a></li>
+                                <li><a href="/stats" className="hover:text-white hover:translate-x-1 transition-all inline-block">مركز البيانات</a></li>
+                                <li><a href="/news" className="hover:text-white hover:translate-x-1 transition-all inline-block">موجز الأخبار</a></li>
                             </ul>
                         </div>
                         <div>
-                            <h4 className="font-bold text-slate-900 mb-4 text-sm">الدعم والمساعدة</h4>
-                            <ul className="space-y-2 text-sm text-slate-500">
-                                <li><a href="#" className="hover:text-blue-600 transition-colors">عن المنصة</a></li>
-                                <li><a href="#" className="hover:text-blue-600 transition-colors">سياسة الخصوصية</a></li>
-                                <li><a href="#" className="hover:text-blue-600 transition-colors">تواصل معنا</a></li>
+                            <h4 className="font-bold text-white mb-6 text-sm flex items-center gap-2">
+                                <span className="w-1 h-4 bg-blue-500 rounded-full"></span> الدعم والمساعدة
+                            </h4>
+                            <ul className="space-y-3 text-sm text-slate-400">
+                                <li><a href="#" className="hover:text-white hover:translate-x-1 transition-all inline-block">عن دليل</a></li>
+                                <li><a href="#" className="hover:text-white hover:translate-x-1 transition-all inline-block">سياسة الخصوصية</a></li>
+                                <li><a href="#" className="hover:text-white hover:translate-x-1 transition-all inline-block">الشروط والأحكام</a></li>
+                                <li><a href="#" className="hover:text-white hover:translate-x-1 transition-all inline-block">تواصل معنا</a></li>
                             </ul>
                         </div>
                     </div>
-                    <div className="border-t border-slate-100 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-400">
-                        <p>© 2026 دليل. جميع الحقوق محفوظة.</p>
-                        <p className="mt-2 md:mt-0">تم التطوير لأغراض الهاكاثون</p>
+
+                    <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
+                        <p>© 2026 دليل للإعلام الذكي. جميع الحقوق محفوظة.</p>
+                        <div className="flex items-center gap-4 mt-4 md:mt-0">
+                            <span className="opacity-70">تم التطوير لأغراض الهاكاثون</span>
+                            <span className="w-1 h-1 bg-slate-700 rounded-full"></span>
+                            <span className="flex items-center gap-1 text-slate-400">
+                                <ShieldCheck size={12} /> حماية 24/7
+                            </span>
+                        </div>
                     </div>
                 </div>
             </footer>
