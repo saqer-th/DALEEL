@@ -1,209 +1,185 @@
 "use client";
 
-import { BadgeCheck, BrainCircuit, Calendar, Clock, ExternalLink, Filter, Newspaper, TrendingUp, AlertTriangle } from "lucide-react";
 import { useState } from "react";
+import {
+    Newspaper, TrendingUp, Filter, Search, Zap,
+    Calendar, ArrowUpRight, Share2, Bookmark, ExternalLink
+} from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 
-const NEWS_CATEGORIES = ["الكل", "حكومي", "تقنية", "اقتصاد", "ثقافة", "عاجل"];
+// Mock Data
+const NEWS_CATEGORIES = [
+    { id: "all", label: "all" },
+    { id: "gov", label: "gov" },
+    { id: "tech", label: "tech" },
+    { id: "economy", label: "economy" },
+    { id: "culture", label: "culture" },
+];
 
 const MOCK_NEWS = [
     {
         id: 1,
+        title: "وزارة الاتصالات تطلق مبادرة لتأهيل 1000 مبرمج في تقنيات الذكاء الاصطناعي",
         source: "وكالة الأنباء السعودية (واس)",
-        title: "إطلاق المبادرة الوطنية للذكاء الاصطناعي في الإعلام",
-        summary: "أعلنت وزارة الإعلام عن إطلاق برنامج شامل لتبني تقنيات الذكاء الاصطناعي في غرف الأخبار، بهدف تعزيز الشفافية ومكافحة التضليل الإعلامي.",
-        category: "حكومي",
-        timestamp: "منذ ساعة",
-        confidence: 99,
-        ai_analysis: "خبر رسمي موثوق - تطابق مع المصدر الحكومي",
-        image: "verif-blue"
+        category: "tech",
+        date: "منذ ساعتين",
+        image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop",
+        aiSummary: "تحليل: المبادرة تهدف لسد الفجوة في سوق العمل التقني، مع تركيز على المناطق الطرفية. التغطية الإيجابية بلغت 95%."
     },
     {
         id: 2,
-        source: "صحيفة الرياض",
-        title: "نمو قطاع الإعلام الرقمي بنسبة 15% في الربع الأول",
-        summary: "أكد تقرير حديث ارتفاع إيرادات الإعلانات الرقمية في المملكة، مع توجه المؤسسات الصحفية الكبرى نحو نماذج الاشتراكات المدفوعة.",
-        category: "اقتصاد",
-        timestamp: "منذ 3 ساعات",
-        confidence: 95,
-        ai_analysis: "تحليل مالي دقيق - مدعوم ببيانات السوق",
-        image: "verif-green"
+        title: "ارتفاع مؤشر البورصة السعودية بنسبة 1.5% بدعم من قطاع البتروكيماويات",
+        source: "صحيفة الاقتصادية",
+        category: "economy",
+        date: "منذ 4 ساعات",
+        image: "https://images.unsplash.com/photo-1611974765270-ca1258634369?q=80&w=2070&auto=format&fit=crop",
+        aiSummary: "تحليل: الانتعاش يعكس ثقة المستثمرين بعد إعلان النتائج الربعية. رصدنا تباين في توقعات المحللين."
     },
     {
         id: 3,
-        source: "أخبار التقنية",
-        title: "نيوم تستضيف قمة مستقبل الإعلام القادم",
-        summary: "تستعد نيوم لاستقبال قادة الإعلام العالمي لمناقشة دمج الواقع المعزز في البث المباشر وصناعة المحتوى التفاعلي.",
-        category: "تقنية",
-        timestamp: "منذ 5 ساعات",
-        confidence: 92,
-        ai_analysis: "حدث مؤكد - تم رصده في 12 مصدر عالمي",
-        image: "verif-purple"
+        title: "افتتاح معرض الكتاب الدولي في الرياض بمشاركة 30 دولة",
+        source: "عكاظ",
+        category: "culture",
+        date: "منذ 6 ساعات",
+        image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=2128&auto=format&fit=crop",
+        aiSummary: "تحليل: الحدث يحظى بتغطية إقليمية واسعة. الكلمات المفتاحية الأكثر تداولاً: 'تبادل ثقافي'، 'نشر المعرفة'."
     },
     {
         id: 4,
-        source: "مصدر غير معروف",
-        title: "تغييرات جذرية في أنظمة التراخيص الإعلامية",
-        summary: "تداولت حسابات مجهولة أنباء عن إلغاء تراخيص الصحف الورقية نهائياً بحلول نهاية العام.",
-        category: "عاجل",
-        timestamp: "منذ 6 ساعات",
-        confidence: 35,
-        ai_analysis: "محتوى مشكوك فيه - لا يوجد مصدر رسمي",
-        image: "verif-red",
-        is_suspicious: true
+        title: "مشروع نيوم يعلن عن شراكة استراتيجية مع كبرى شركات الطاقة المتجددة",
+        source: "الشرق الأوسط",
+        category: "economy",
+        date: "منذ 8 ساعات",
+        image: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop",
+        aiSummary: "تحليل: الشراكة تعزز مكانة المملكة في مجال الهيدروجين الأخضر. ردود الفعل الدولية إيجابية للغاية."
     },
     {
         id: 5,
-        source: "صحيفة مكة",
-        title: "موسم الحج يشهد تغطية إعلامية غير مسبوقة",
-        summary: "أكثر من 2000 إعلامي دولي يشاركون في نقل شعائر الحج لهذا العام، باستخدام أحدث تقنيات النقل المباشر.",
-        category: "ثقافة",
-        timestamp: "منذ يوم",
-        confidence: 97,
-        ai_analysis: "تغطية ميدانية موثقة",
-        image: "verif-green"
+        title: "هيئة الترفيه تكشف عن روزنامة الفعاليات للموسم القادم",
+        source: "سبق",
+        category: "culture",
+        date: "أمس",
+        image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2070&auto=format&fit=crop",
+        aiSummary: "تحليل: التنوع في الفعاليات يستهدف شريحة سياحية أوسع. التفاعل على منصات التواصل الاجتماعي مرتفع جداً."
     },
     {
         id: 6,
-        source: "جريدة الاقتصادية",
-        title: "صندوق الاستثمارات العامة يستحوذ على حصة استراتيجية في مجموعة إعلامية",
-        summary: "صفقة جديدة تهدف لتعزيز المحتوى العربي الرقمي وتوسيع نطاق الوصول للجمهور العالمي.",
-        category: "اقتصاد",
-        timestamp: "منذ يومين",
-        confidence: 94,
-        ai_analysis: "بيان مالي رسمي",
-        image: "verif-blue"
+        title: "إطلاق خدمات حكومية رقمية جديدة عبر منصة 'أبشر'",
+        source: "صحيفة الرياض",
+        category: "gov",
+        date: "أمس",
+        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
+        aiSummary: "تحليل: الخطوة تأتي ضمن استراتيجية التحول الرقمي. المتوقع خفض زمن إنجاز المعاملات بنسبة 40%."
     }
 ];
 
 export default function NewsPage() {
-    const [activeCategory, setActiveCategory] = useState("الكل");
+    const { t, language } = useLanguage();
+    const [activeCategory, setActiveCategory] = useState("all");
 
-    const filteredNews = activeCategory === "الكل"
+    const filteredNews = activeCategory === "all"
         ? MOCK_NEWS
-        : MOCK_NEWS.filter(n => n.category === activeCategory);
+        : MOCK_NEWS.filter(news => news.category === activeCategory);
 
     return (
-        <div className="min-h-screen bg-slate-50">
-            {/* Header Section */}
-            <div className="bg-white border-b border-slate-200 py-12">
-                <div className="container mx-auto px-4">
-                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
-                        <div>
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-xs font-semibold mb-4 animate-fade-in">
-                                <BrainCircuit size={14} />
-                                مدعوم بالذكاء الاصطناعي
-                            </div>
-                            <h1 className="text-4xl font-bold text-slate-900 mb-4 leading-tight">
-                                موجز الأخبار <span className="text-blue-600">الذكي</span>
-                            </h1>
-                            <p className="text-lg text-slate-600 max-w-2xl leading-relaxed">
-                                منصة رصد وتحليل الأخبار لحظياً، تقدم لك ملخصات دقيقة مع مؤشرات ثقة تعتمد على خوارزميات التحقق من المصادر.
-                            </p>
-                        </div>
+        <div className="bg-slate-50 min-h-screen pb-12 font-sans">
+            <div className="container mx-auto px-4 py-8 max-w-7xl">
 
-                        {/* Stats Summary Box */}
-                        <div className="flex gap-4 bg-slate-50 p-4 rounded-xl border border-slate-100 shadow-sm">
-                            <div className="text-center px-4 border-l border-slate-200 pl-4">
-                                <span className="block text-2xl font-bold text-slate-900">24</span>
-                                <span className="text-xs text-slate-500">خبر جديد</span>
-                            </div>
-                            <div className="text-center px-4">
-                                <span className="block text-2xl font-bold text-sky-600">96%</span>
-                                <span className="text-xs text-slate-500">متوسط الدقة</span>
-                            </div>
-                        </div>
+                {/* Header */}
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+                    <div>
+                        <h1 className="text-3xl font-bold text-slate-900 mb-2 flex items-center gap-3">
+                            <Newspaper className="text-blue-600" />
+                            {t("newsTitle")}
+                        </h1>
+                        <p className="text-slate-500 text-lg">
+                            {t("brandSlogan")}
+                        </p>
+                    </div>
+                    <div className="flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-full border border-blue-100 mb-1">
+                        <Zap size={18} className="fill-blue-700" />
+                        <span className="text-sm font-bold">{t("aiPowered")}</span>
                     </div>
                 </div>
-            </div>
 
-            {/* Content Section */}
-            <div className="container mx-auto px-4 py-8">
-                {/* Categories Filter */}
-                <div className="flex flex-wrap gap-2 mb-8">
-                    {NEWS_CATEGORIES.map((cat) => (
-                        <button
-                            key={cat}
-                            onClick={() => setActiveCategory(cat)}
-                            className={cn(
-                                "px-4 py-2 rounded-full text-sm font-medium transition-all duration-200",
-                                activeCategory === cat
-                                    ? "bg-slate-900 text-white shadow-md transform scale-105"
-                                    : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 hover:border-slate-300"
-                            )}
-                        >
-                            {cat}
-                        </button>
-                    ))}
+                {/* Filters */}
+                <div className="flex flex-wrap items-center gap-2 mb-8 sticky top-[80px] z-20 bg-slate-50/90 backdrop-blur-sm py-2">
+                    <div className="bg-white p-1 rounded-xl border border-slate-200 shadow-sm flex items-center gap-1 overflow-x-auto max-w-full">
+                        {NEWS_CATEGORIES.map(cat => (
+                            <button
+                                key={cat.id}
+                                onClick={() => setActiveCategory(cat.id)}
+                                className={cn(
+                                    "px-4 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap",
+                                    activeCategory === cat.id
+                                        ? "bg-slate-900 text-white shadow-md"
+                                        : "bg-transparent text-slate-500 hover:bg-slate-50"
+                                )}
+                            >
+                                {t(cat.label as any)}
+                            </button>
+                        ))}
+                    </div>
                 </div>
 
                 {/* News Grid */}
-                <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                    {filteredNews.map((item) => (
-                        <div
-                            key={item.id}
-                            className="group relative bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col"
-                        >
-                            {/* Confidence Indicator Line */}
-                            <div className={cn("h-1 w-full",
-                                item.confidence >= 90 ? "bg-emerald-500" :
-                                    item.confidence >= 70 ? "bg-blue-500" : "bg-red-500"
-                            )} />
-
-                            <div className="p-6 flex-1 flex flex-col">
-                                {/* Meta Header */}
-                                <div className="flex justify-between items-start mb-4">
-                                    <div className="flex items-center gap-2">
-                                        <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center text-slate-600">
-                                            <Newspaper size={16} />
-                                        </div>
-                                        <div>
-                                            <h4 className="text-xs font-bold text-slate-900">{item.source}</h4>
-                                            <span className="text-[10px] text-slate-500 flex items-center gap-1">
-                                                <Clock size={10} /> {item.timestamp}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div className={cn("px-2 py-1 rounded-lg text-xs font-bold flex items-center gap-1",
-                                        item.confidence >= 90 ? "bg-emerald-50 text-emerald-700 border border-emerald-100" :
-                                            item.confidence >= 70 ? "bg-blue-50 text-blue-700 border border-blue-100" :
-                                                "bg-red-50 text-red-700 border border-red-100"
-                                    )}>
-                                        {item.confidence >= 90 ? <BadgeCheck size={12} /> : <AlertTriangle size={12} />}
-                                        {item.confidence}%
-                                    </div>
-                                </div>
-
-                                {/* Content */}
-                                <h3 className="text-lg font-bold text-slate-900 mb-3 leading-snug group-hover:text-blue-700 transition-colors">
-                                    {item.title}
-                                </h3>
-                                <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-1">
-                                    {item.summary}
-                                </p>
-
-                                {/* AI Analysis Footer */}
-                                <div className="mt-auto bg-slate-50 rounded-lg p-3 border border-slate-100">
-                                    <div className="flex items-center gap-2 mb-1">
-                                        <BrainCircuit size={14} className="text-purple-600" />
-                                        <span className="text-xs font-semibold text-purple-700">تحليل الذكاء الاصطناعي</span>
-                                    </div>
-                                    <p className="text-xs text-slate-600">
-                                        {item.ai_analysis}
-                                    </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filteredNews.map((item, i) => (
+                        <div key={item.id} className="group bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col h-full">
+                            {/* Image */}
+                            <div className="relative h-48 overflow-hidden">
+                                <img
+                                    src={item.image}
+                                    alt={item.title}
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                                <div className="absolute top-3 start-3">
+                                    <span className="bg-white/90 backdrop-blur-md text-slate-800 text-xs font-bold px-3 py-1 rounded-full border border-white/20 shadow-sm">
+                                        {t(item.category as any)}
+                                    </span>
                                 </div>
                             </div>
 
-                            {/* Action Footer */}
-                            <div className="px-6 py-3 border-t border-slate-50 flex justify-between items-center bg-gray-50/50">
-                                <span className={cn("text-[10px] font-semibold px-2 py-0.5 rounded",
-                                    item.category === "عاجل" ? "bg-red-100 text-red-600" : "bg-slate-200 text-slate-600"
-                                )}>
-                                    {item.category}
-                                </span>
-                                <button className="text-xs font-bold text-slate-600 group-hover:text-blue-600 flex items-center gap-1 transition-colors">
-                                    قراءة الكامل <ExternalLink size={10} />
-                                </button>
+                            {/* Content */}
+                            <div className="p-5 flex flex-col flex-1">
+                                <div className="flex items-center gap-2 text-xs text-slate-400 mb-3">
+                                    <span className="flex items-center gap-1"><Calendar size={12} /> {item.date}</span>
+                                    <span className="w-1 h-1 rounded-full bg-slate-100"></span>
+                                    <span className="font-medium text-slate-600 truncate max-w-[150px]">{item.source}</span>
+                                </div>
+
+                                <h3 className="font-bold text-slate-900 text-lg mb-3 line-clamp-2 leading-tight group-hover:text-blue-700 transition-colors">
+                                    {item.title}
+                                </h3>
+
+                                <div className="mt-auto pt-4 border-t border-slate-50 space-y-3">
+                                    {/* AI Insight */}
+                                    <div className="bg-purple-50 rounded-lg p-3 border border-purple-100">
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <Zap size={14} className="text-purple-600 fill-purple-600" />
+                                            <span className="text-[10px] font-bold text-purple-700 uppercase tracking-wider">{t("aiAnalysis")}</span>
+                                        </div>
+                                        <p className="text-xs text-slate-600 leading-relaxed">
+                                            {item.aiSummary}
+                                        </p>
+                                    </div>
+
+                                    {/* Actions */}
+                                    <div className="flex items-center justify-between pt-2">
+                                        <div className="flex gap-2">
+                                            <button className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-full transition-colors">
+                                                <Share2 size={16} />
+                                            </button>
+                                            <button className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-full transition-colors">
+                                                <Bookmark size={16} />
+                                            </button>
+                                        </div>
+                                        <button className="text-sm font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1 group/btn">
+                                            {t("readMore")} <ArrowUpRight size={16} className="transition-transform group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5 rtl:group-hover/btn:-translate-x-0.5" />
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     ))}

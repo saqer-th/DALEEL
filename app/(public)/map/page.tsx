@@ -5,14 +5,16 @@ import { MediaList } from "@/components/map/MediaList";
 import { MOCK_MEDIA_ENTITIES } from "@/lib/data/mock-media";
 import SaudiMapSVG from "@/components/map/SaudiMapSVG";
 import { Activity, Building2, Map as MapIcon, Newspaper } from "lucide-react";
+import { useLanguage } from "@/components/providers/LanguageProvider";
 
 export default function MapPage() {
     const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
+    const { t } = useLanguage();
 
     const stats = useMemo(() => {
         const total = MOCK_MEDIA_ENTITIES.length;
         const newspapers = MOCK_MEDIA_ENTITIES.filter(
-            (e) => e.type === "Newspaper"
+            (e) => e.type === "Newspaper" // This string comparison might need review if data types change, but for now it's fine
         ).length;
         const activeRegions = new Set(
             MOCK_MEDIA_ENTITIES.map((e) => e.region)
@@ -29,31 +31,31 @@ export default function MapPage() {
                     <div>
                         <h1 className="text-3xl font-bold text-slate-900 flex items-center gap-3">
                             <MapIcon className="text-blue-600" size={32} />
-                            خريطة الإعلام السعودي
+                            {t("mapTitle")}
                         </h1>
                         <p className="text-slate-500 mt-2 text-lg">
-                            نظام استكشاف وتحليل المشهد الإعلامي وتوزيع الكيانات الصحفية
+                            {t("mapSubtitle")}
                         </p>
                     </div>
 
                     {/* Mini Stats */}
-                    <div className="flex bg-white rounded-lg shadow-sm border border-slate-200 divide-x divide-x-reverse divide-slate-100 overflow-hidden">
+                    <div className="flex bg-white rounded-lg shadow-sm border border-slate-200 divide-x divide-x-reverse divide-slate-100 overflow-hidden rtl:divide-x-reverse ltr:divide-x">
                         <StatItem
                             icon={<Building2 size={18} />}
                             value={stats.total}
-                            label="جهة إعلامية"
+                            label={t("mediaEntity")}
                             color="blue"
                         />
                         <StatItem
                             icon={<Newspaper size={18} />}
                             value={stats.newspapers}
-                            label="صحيفة يومية"
+                            label={t("newspaper")}
                             color="purple"
                         />
                         <StatItem
                             icon={<Activity size={18} />}
                             value={stats.activeRegions}
-                            label="منطقة مغطاة"
+                            label={t("coveredRegion")}
                             color="emerald"
                         />
                     </div>
@@ -65,8 +67,8 @@ export default function MapPage() {
                     {/* -------- Map (Smaller) -------- */}
                     <div className="lg:col-span-7 flex flex-col">
                         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-1 flex-1 relative overflow-hidden">
-                            <div className="absolute top-4 right-4 z-10 bg-white/90 backdrop-blur px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-500 shadow-sm border border-slate-100">
-                                اختر منطقة لعرض التفاصيل
+                            <div className="absolute top-4 start-4 z-10 bg-white/90 backdrop-blur px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-500 shadow-sm border border-slate-100">
+                                {t("selectRegion")}
                             </div>
 
                             <SaudiMapSVG

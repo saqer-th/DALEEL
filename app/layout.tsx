@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans_Arabic } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/components/providers/LanguageProvider";
 
 const ibmPlexSansArabic = IBM_Plex_Sans_Arabic({
   subsets: ["arabic"],
@@ -23,7 +24,9 @@ export default function RootLayout({
       <body
         className={`${ibmPlexSansArabic.variable} antialiased font-sans bg-slate-50 text-slate-900`}
       >
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

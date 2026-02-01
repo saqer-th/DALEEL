@@ -4,9 +4,11 @@ export type MediaStatus = "Active" | "Stopped";
 export interface Founder {
     id: string;
     name: string;
+    nameEn?: string; // Added for English support
     role: "Founder" | "Co-Founder" | "Editor-in-Chief";
     nationality?: string;
     bio?: string;
+    bioEn?: string;
 }
 
 export interface EstablishmentDate {
@@ -18,6 +20,7 @@ export interface EstablishmentDate {
 export interface MediaEntity {
     id: string;
     name: string;
+    nameEn?: string; // Added for English support
     type: MediaType;
     region: string;
     city: string;
@@ -30,11 +33,12 @@ export interface MediaEntity {
     website?: string;
     logo?: string;
     description?: string;
+    descriptionEn?: string;
 }
 
 export interface Region {
     id: string;
-    name: string;
+    name: string; // English Name
     arabicName: string;
     coordinates: [number, number];
 }
@@ -57,32 +61,32 @@ export const SAUDI_REGIONS: Region[] = [
 
 // Mock Founders
 export const MOCK_FOUNDERS: Founder[] = [
-    { id: "f1", name: "حمد الجاسر", role: "Founder", nationality: "Saudi", bio: "علامة الجزيرة العربية ورائد الصحافة في المنطقة الوسطى." },
-    { id: "f2", name: "أحمد عبده يماني", role: "Founder", nationality: "Saudi", bio: "من رواد الصحافة في المنطقة الغربية." },
-    { id: "f3", name: "عثمان حافظ", role: "Co-Founder", nationality: "Saudi", bio: "أسس مع شقيقه جريدة المدينة." },
-    { id: "f4", name: "علي حافظ", role: "Co-Founder", nationality: "Saudi" },
-    { id: "f5", name: "عبدالله بن خميس", role: "Founder", nationality: "Saudi", bio: "أديب ومؤرخ، مؤسس صحيفة الجزيرة." },
-    { id: "f6", name: "تركي بن عبدالله السديري", role: "Editor-in-Chief", bio: "لقب بملك الصحافة، قاد جريدة الرياض لعقود." },
-    { id: "f7", name: "خالد المالك", role: "Editor-in-Chief", bio: "رئيس تحرير الجزيرة وعميد الصحفيين." },
-    { id: "f8", name: "محمد صلاح الدين", role: "Founder", nationality: "Saudi" },
-    { id: "f9", name: "أحمد السباعي", role: "Founder", nationality: "Saudi", bio: "رائد القصة الحديثة في الحجاز." },
-    { id: "f10", name: "عبدالقدوس الأنصاري", role: "Founder", nationality: "Saudi", bio: "مؤسس مجلة المنهل." },
-    { id: "f11", name: "هشام حافظ", role: "Co-Founder", nationality: "Saudi" },
-    { id: "f12", name: "محمد علي حافظ", role: "Co-Founder", nationality: "Saudi" },
-    { id: "f13", name: "فؤاد عزب", role: "Founder", nationality: "Saudi" },
-    { id: "f14", name: "سليمان العيسى", role: "Founder", nationality: "Saudi" },
-    { id: "f15", name: "عبدالله بن علي الصانع", role: "Founder", nationality: "Saudi" },
-    { id: "f16", name: "عبدالكريم الجهيمان", role: "Founder", nationality: "Saudi", bio: "أديب وصحفي مخضرم." },
-    { id: "f17", name: "هاشم بن سعيد النعمي", role: "Founder", nationality: "Saudi" },
-    { id: "f18", name: "محمد فهد اليعقوب", role: "Founder", nationality: "Saudi" },
-    { id: "f19", name: "خليل الزياني", role: "Founder", nationality: "Saudi" },
-    { id: "f20", name: "عبدالله عبيان", role: "Editor-in-Chief", nationality: "Saudi" }
+    { id: "f1", name: "حمد الجاسر", nameEn: "Hamad Al-Jasser", role: "Founder", nationality: "Saudi", bio: "علامة الجزيرة العربية ورائد الصحافة في المنطقة الوسطى." },
+    { id: "f2", name: "أحمد عبده يماني", nameEn: "Ahmed Abdo Yamani", role: "Founder", nationality: "Saudi", bio: "من رواد الصحافة في المنطقة الغربية." },
+    { id: "f3", name: "عثمان حافظ", nameEn: "Othman Hafiz", role: "Co-Founder", nationality: "Saudi", bio: "أسس مع شقيقه جريدة المدينة." },
+    { id: "f4", name: "علي حافظ", nameEn: "Ali Hafiz", role: "Co-Founder", nationality: "Saudi" },
+    { id: "f5", name: "عبدالله بن خميس", nameEn: "Abdullah Bin Khamis", role: "Founder", nationality: "Saudi", bio: "أديب ومؤرخ، مؤسس صحيفة الجزيرة." },
+    { id: "f6", name: "تركي بن عبدالله السديري", nameEn: "Turki Al-Sudairi", role: "Editor-in-Chief", bio: "لقب بملك الصحافة، قاد جريدة الرياض لعقود." },
+    { id: "f7", name: "خالد المالك", nameEn: "Khalid Al-Malik", role: "Editor-in-Chief", bio: "رئيس تحرير الجزيرة وعميد الصحفيين." },
+    { id: "f8", name: "محمد صلاح الدين", nameEn: "Mohammed Salahuddin", role: "Founder", nationality: "Saudi" },
+    { id: "f9", name: "أحمد السباعي", nameEn: "Ahmed Al-Sibai", role: "Founder", nationality: "Saudi", bio: "رائد القصة الحديثة في الحجاز." },
+    { id: "f10", name: "عبدالقدوس الأنصاري", nameEn: "Abdulquddus Al-Ansari", role: "Founder", nationality: "Saudi", bio: "مؤسس مجلة المنهل." },
+    { id: "f11", name: "هشام حافظ", nameEn: "Hisham Hafiz", role: "Co-Founder", nationality: "Saudi" },
+    { id: "f12", name: "محمد علي حافظ", nameEn: "Mohammed Ali Hafiz", role: "Co-Founder", nationality: "Saudi" },
+    { id: "f13", name: "فؤاد عزب", nameEn: "Fouad Azab", role: "Founder", nationality: "Saudi" },
+    { id: "f14", name: "سليمان العيسى", nameEn: "Sulaiman Al-Issa", role: "Founder", nationality: "Saudi" },
+    { id: "f15", name: "عبدالله بن علي الصانع", nameEn: "Abdullah Al-Sarea", role: "Founder", nationality: "Saudi" },
+    { id: "f16", name: "عبدالكريم الجهيمان", nameEn: "Abdulkarim Al-Juhaiman", role: "Founder", nationality: "Saudi", bio: "أديب وصحفي مخضرم." },
+    { id: "f17", name: "هاشم بن سعيد النعمي", nameEn: "Hashim Al-Nami", role: "Founder", nationality: "Saudi" },
+    { id: "f18", name: "محمد فهد اليعقوب", nameEn: "Mohammed Al-Yacoub", role: "Founder", nationality: "Saudi" },
+    { id: "f19", name: "خليل الزياني", nameEn: "Khalil Al-Zayani", role: "Founder", nationality: "Saudi" },
+    { id: "f20", name: "عبدالله عبيان", nameEn: "Abdullah Obayan", role: "Editor-in-Chief", nationality: "Saudi" }
 ];
 
 export const MOCK_MEDIA_ENTITIES: MediaEntity[] = [
     // REGION: RIYADH
     {
-        id: "r1", name: "صحيفة الرياض", type: "Newspaper", region: "riyadh", city: "الرياض",
+        id: "r1", name: "صحيفة الرياض", nameEn: "Al Riyadh Newspaper", type: "Newspaper", region: "riyadh", city: "الرياض",
         status: "Active", licensed: true,
         establishment: { hijri: 1385, gregorian: 1965, display: "1385 هـ (1965 م)" },
         founderIds: ["f1", "f6"],
@@ -91,7 +95,7 @@ export const MOCK_MEDIA_ENTITIES: MediaEntity[] = [
         description: "واحدة من أبرز الصحف اليومية السعودية، تصدر عن مؤسسة اليمامة الصحفية."
     },
     {
-        id: "r2", name: "صحيفة الجزيرة", type: "Newspaper", region: "riyadh", city: "الرياض",
+        id: "r2", name: "صحيفة الجزيرة", nameEn: "Al Jazirah Newspaper", type: "Newspaper", region: "riyadh", city: "الرياض",
         status: "Active", licensed: true,
         establishment: { hijri: 1380, gregorian: 1960, display: "1380 هـ (1960 م)" },
         founderIds: ["f5", "f7"],
@@ -100,28 +104,28 @@ export const MOCK_MEDIA_ENTITIES: MediaEntity[] = [
         description: "أول صحيفة يومية تصدر في الرياض، متميزة بتغطيتها المحلية."
     },
     {
-        id: "r3", name: "الشرق الأوسط", type: "Newspaper", region: "riyadh", city: "الرياض",
+        id: "r3", name: "الشرق الأوسط", nameEn: "Asharq Al-Awsat", type: "Newspaper", region: "riyadh", city: "الرياض",
         status: "Active", licensed: true,
         establishment: { hijri: 1398, gregorian: 1978, display: "1398 هـ (1978 م)" },
         founderIds: ["f11", "f12"],
         description: "صحيفة العرب الدولية، خضراء الصفحات، ذات تأثير واسع."
     },
     {
-        id: "r4", name: "مجلة اليمامة", type: "Magazine", region: "riyadh", city: "الرياض",
+        id: "r4", name: "مجلة اليمامة", nameEn: "Al Yamamah Magazine", type: "Magazine", region: "riyadh", city: "الرياض",
         status: "Active", licensed: true,
         establishment: { hijri: 1372, gregorian: 1952, display: "1372 هـ (1952 م)" },
         founderIds: ["f1"],
         description: "مجلة أسبوعية ثقافية جامعة، تعتبر مدرسة صحفية."
     },
     {
-        id: "r5", name: "صحيفة الاقتصادية", type: "Newspaper", region: "riyadh", city: "الرياض",
+        id: "r5", name: "صحيفة الاقتصادية", nameEn: "Al Eqtisadiah", type: "Newspaper", region: "riyadh", city: "الرياض",
         status: "Active", licensed: true,
         establishment: { hijri: 1413, gregorian: 1992, display: "1413 هـ (1992 م)" },
         founderIds: [],
         description: "صحيفة يومية متخصصة في الأخبار الاقتصادية والمالية."
     },
     {
-        id: "r6", name: "مجلة الدعوة", type: "Magazine", region: "riyadh", city: "الرياض",
+        id: "r6", name: "مجلة الدعوة", nameEn: "Al Da'wah Magazine", type: "Magazine", region: "riyadh", city: "الرياض",
         status: "Active", licensed: true,
         establishment: { hijri: 1385, gregorian: 1965, display: "1385 هـ (1965 م)" },
         founderIds: [],
@@ -130,7 +134,7 @@ export const MOCK_MEDIA_ENTITIES: MediaEntity[] = [
 
     // REGION: MAKKAH
     {
-        id: "m1", name: "صحيفة عكاظ", type: "Newspaper", region: "makkah", city: "جدة",
+        id: "m1", name: "صحيفة عكاظ", nameEn: "Okaz Newspaper", type: "Newspaper", region: "makkah", city: "جدة",
         status: "Active", licensed: true,
         establishment: { hijri: 1379, gregorian: 1960, display: "1379 هـ (1960 م)" },
         founderIds: ["f2"],
@@ -139,28 +143,28 @@ export const MOCK_MEDIA_ENTITIES: MediaEntity[] = [
         description: "صحيفة يومية كبرى، تتميز بجرأتها وتغطيتها لغرب المملكة."
     },
     {
-        id: "m2", name: "صحيفة البلاد", type: "Newspaper", region: "makkah", city: "جدة",
+        id: "m2", name: "صحيفة البلاد", nameEn: "Al Bilad", type: "Newspaper", region: "makkah", city: "جدة",
         status: "Active", licensed: true,
         establishment: { hijri: 1353, gregorian: 1934, display: "1353 هـ (1934 م)" },
         founderIds: ["f8", "f9"],
         description: "تعتبر امتداداً لجريدة 'صوت الحجاز'، أعرق الصحف السعودية."
     },
     {
-        id: "m3", name: "مجلة المنهل", type: "Magazine", region: "makkah", city: "جدة",
+        id: "m3", name: "مجلة المنهل", nameEn: "Al Manhal", type: "Magazine", region: "makkah", city: "جدة",
         status: "Stopped", licensed: true,
         establishment: { hijri: 1355, gregorian: 1937, display: "1355 هـ (1937 م)" },
         founderIds: ["f10"],
         description: "مجلة فكرية ثقافية رائدة، ظلت تصدر لعقود طويلة."
     },
     {
-        id: "m4", name: "صحيفة الندوة", type: "Newspaper", region: "makkah", city: "مكة المكرمة",
+        id: "m4", name: "صحيفة الندوة", nameEn: "Al Nadwa", type: "Newspaper", region: "makkah", city: "مكة المكرمة",
         status: "Stopped", licensed: true,
         establishment: { hijri: 1377, gregorian: 1958, display: "1377 هـ (1958 م)" },
         founderIds: ["f13"],
         description: "كانت الصوت الإعلامي الأول من مكة المكرمة."
     },
     {
-        id: "m5", name: "مكة", type: "Newspaper", region: "makkah", city: "مكة المكرمة",
+        id: "m5", name: "مكة", nameEn: "Makkah Newspaper", type: "Newspaper", region: "makkah", city: "مكة المكرمة",
         status: "Active", licensed: true,
         establishment: { hijri: 1435, gregorian: 2014, display: "1435 هـ (2014 م)" },
         founderIds: [],
@@ -169,7 +173,7 @@ export const MOCK_MEDIA_ENTITIES: MediaEntity[] = [
 
     // REGION: MADINAH
     {
-        id: "md1", name: "صحيفة المدينة", type: "Newspaper", region: "madinah", city: "جدة", // HQ moved to Jeddah later
+        id: "md1", name: "صحيفة المدينة", nameEn: "Al Madina", type: "Newspaper", region: "madinah", city: "جدة",
         status: "Active", licensed: true,
         establishment: { hijri: 1356, gregorian: 1937, display: "1356 هـ (1937 م)" },
         founderIds: ["f3", "f4"],
@@ -180,7 +184,7 @@ export const MOCK_MEDIA_ENTITIES: MediaEntity[] = [
 
     // REGION: EASTERN
     {
-        id: "e1", name: "صحيفة اليوم", type: "Newspaper", region: "eastern", city: "الدمام",
+        id: "e1", name: "صحيفة اليوم", nameEn: "Al Yaum", type: "Newspaper", region: "eastern", city: "الدمام",
         status: "Active", licensed: true,
         establishment: { hijri: 1385, gregorian: 1965, display: "1385 هـ (1965 م)" },
         founderIds: ["f15"],
@@ -188,14 +192,14 @@ export const MOCK_MEDIA_ENTITIES: MediaEntity[] = [
         description: "الصحيفة الأولى في المنطقة الشرقية."
     },
     {
-        id: "e2", name: "أخبار الخليج", type: "Magazine", region: "eastern", city: "الخبر",
+        id: "e2", name: "أخبار الخليج", nameEn: "Akhbar Al Khaleej", type: "Magazine", region: "eastern", city: "الخبر",
         status: "Stopped", licensed: false,
         establishment: { hijri: 1375, gregorian: 1955, display: "1375 هـ (1955 م)" },
         founderIds: ["f16"],
         description: "مجلة أسبوعية قديمة كانت تصدر في الخبر."
     },
     {
-        id: "e3", name: "مجلة القافلة", type: "Magazine", region: "eastern", city: "الظهران",
+        id: "e3", name: "مجلة القافلة", nameEn: "Al Qafilah", type: "Magazine", region: "eastern", city: "الظهران",
         status: "Active", licensed: true,
         establishment: { hijri: 1373, gregorian: 1953, display: "1373 هـ (1953 م)" },
         founderIds: [],
@@ -204,7 +208,7 @@ export const MOCK_MEDIA_ENTITIES: MediaEntity[] = [
 
     // REGION: ASIR
     {
-        id: "a1", name: "صحيفة الوطن", type: "Newspaper", region: "asir", city: "أبها",
+        id: "a1", name: "صحيفة الوطن", nameEn: "Al Watan", type: "Newspaper", region: "asir", city: "أبها",
         status: "Active", licensed: true,
         establishment: { hijri: 1421, gregorian: 2000, display: "1421 هـ (2000 م)" },
         founderIds: [],
@@ -212,7 +216,7 @@ export const MOCK_MEDIA_ENTITIES: MediaEntity[] = [
         description: "انطلقت برؤية 'الوطن بعيون الجميع'، وتميزت بطرح قضايا جريئة."
     },
     {
-        id: "a2", name: "مجلة الجنوب", type: "Magazine", region: "asir", city: "أبها",
+        id: "a2", name: "مجلة الجنوب", nameEn: "Al Janoub", type: "Magazine", region: "asir", city: "أبها",
         status: "Stopped", licensed: true,
         establishment: { hijri: 1400, gregorian: 1980, display: "1400 هـ (1980 م)" },
         founderIds: ["f17"]
@@ -220,7 +224,7 @@ export const MOCK_MEDIA_ENTITIES: MediaEntity[] = [
 
     // REGION: QASSIM
     {
-        id: "q1", name: "صحيفة القصيم (توقفت)", type: "Newspaper", region: "qassim", city: "بريدة",
+        id: "q1", name: "صحيفة القصيم (توقفت)", nameEn: "Al Qassim Newspaper", type: "Newspaper", region: "qassim", city: "بريدة",
         status: "Stopped", licensed: true,
         establishment: { hijri: 1379, gregorian: 1959, display: "1379 هـ (1959 م)" },
         founderIds: ["f15"],
@@ -229,7 +233,7 @@ export const MOCK_MEDIA_ENTITIES: MediaEntity[] = [
 
     // REGION: HAIL
     {
-        id: "h1", name: " مجلة حائل", type: "Magazine", region: "hail", city: "حائل",
+        id: "h1", name: " مجلة حائل", nameEn: "Hail Magazine", type: "Magazine", region: "hail", city: "حائل",
         status: "Active", licensed: true,
         establishment: { hijri: 1408, gregorian: 1988, display: "1408 هـ (1988 م)" },
         founderIds: ["f18"],
@@ -238,15 +242,15 @@ export const MOCK_MEDIA_ENTITIES: MediaEntity[] = [
 
     // REGION: JAZAN
     {
-        id: "j1", name: "جازان اليوم", type: "Newspaper", region: "jazan", city: "جازان",
+        id: "j1", name: "جازان اليوم", nameEn: "Jazan Today", type: "Newspaper", region: "jazan", city: "جازان",
         status: "Active", licensed: true,
-        establishment: { hijri: 1430, gregorian: 2009, display: "1430 هـ (2009 م)" }, // Electronic turned licensed
+        establishment: { hijri: 1430, gregorian: 2009, display: "1430 هـ (2009 م)" },
         founderIds: [],
     },
 
     // REGION: JOUF
     {
-        id: "jo1", name: "مجلة الجوف", type: "Magazine", region: "jouf", city: "سكاكا",
+        id: "jo1", name: "مجلة الجوف", nameEn: "Al Jouf Magazine", type: "Magazine", region: "jouf", city: "سكاكا",
         status: "Active", licensed: true,
         establishment: { hijri: 1420, gregorian: 1999, display: "1420 هـ (1999 م)" },
         founderIds: []
