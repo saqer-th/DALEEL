@@ -108,12 +108,12 @@ export default function PublicLayout({
             </header>
 
             {/* Main Content with Top Padding for Sticky Header */}
-            <main className="flex-1 pt-16 animate-fade-in">
+            <main className="flex-1 pt-16 md:pt-20 pb-24 md:pb-0 animate-fade-in">
                 {children}
             </main>
 
             {/* Enhanced Footer */}
-            <footer className="bg-slate-900 border-t border-slate-800 text-slate-300 py-12">
+            <footer className="bg-slate-900 border-t border-slate-800 text-slate-300 py-12 pb-32 md:pb-12">
                 <div className="container mx-auto px-4">
                     <div className="grid md:grid-cols-4 gap-8 mb-8">
                         <div className="col-span-1 md:col-span-2">
