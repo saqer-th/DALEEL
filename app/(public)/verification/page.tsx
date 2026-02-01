@@ -45,17 +45,21 @@ export default function VerificationPage() {
                 <div className="max-w-4xl mx-auto space-y-6">
 
                     {/* Header */}
-                    <div className="flex items-center justify-between mb-8">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12 mt-4 md:mt-0">
                         <div>
-                            <h1 className="text-2xl lg:text-3xl font-bold text-slate-900 flex items-center gap-3">
-                                <ShieldCheck className="text-emerald-600 w-8 h-8 lg:w-10 lg:h-10" />
+                            <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 flex items-center gap-4 tracking-tight">
+                                <div className="p-2 bg-emerald-600 rounded-2xl text-white shadow-lg shadow-emerald-600/20">
+                                    <ShieldCheck size={32} />
+                                </div>
                                 {t("verifyTitle")}
                             </h1>
-                            <p className="text-slate-500 mt-1 text-sm lg:text-base">{t("verifySubtitle")}</p>
+                            <p className="text-slate-500 mt-3 text-lg md:text-xl font-medium max-w-2xl leading-relaxed">
+                                {t("verifySubtitle")}
+                            </p>
                         </div>
-                        <div className="hidden sm:flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-2 rounded-full border border-emerald-100 animate-pulse">
-                            <Activity size={18} />
-                            <span className="text-sm font-bold">{t("systemOnline")}</span>
+                        <div className="flex items-center gap-2 bg-emerald-50 text-emerald-700 px-5 py-2.5 rounded-2xl border border-emerald-100 animate-pulse self-start md:self-center">
+                            <Activity size={20} />
+                            <span className="text-sm font-black uppercase tracking-wider">{t("systemOnline")}</span>
                         </div>
                     </div>
 

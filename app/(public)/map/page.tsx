@@ -27,37 +27,41 @@ export default function MapPage() {
         <div className="bg-slate-50/50 min-h-[calc(100vh-64px)]">
             <div className="container mx-auto max-w-7xl px-4 py-6 h-full flex flex-col">
                 {/* ================= Header ================= */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 mt-2 md:mt-0">
                     <div>
-                        <h1 className="text-3xl font-bold text-slate-900 flex items-center gap-3">
-                            <MapIcon className="text-blue-600" size={32} />
+                        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 flex items-center gap-4 tracking-tight">
+                            <div className="p-2 bg-blue-600 rounded-2xl text-white shadow-lg shadow-blue-600/20">
+                                <MapIcon size={32} />
+                            </div>
                             {t("mapTitle")}
                         </h1>
-                        <p className="text-slate-500 mt-2 text-lg">
+                        <p className="text-slate-500 mt-3 text-lg md:text-xl font-medium max-w-2xl leading-relaxed">
                             {t("mapSubtitle")}
                         </p>
                     </div>
 
-                    {/* Mini Stats */}
-                    <div className="flex bg-white rounded-lg shadow-sm border border-slate-200 divide-x divide-x-reverse divide-slate-100 overflow-hidden rtl:divide-x-reverse ltr:divide-x">
-                        <StatItem
-                            icon={<Building2 size={18} />}
-                            value={stats.total}
-                            label={t("mediaEntity")}
-                            color="blue"
-                        />
-                        <StatItem
-                            icon={<Newspaper size={18} />}
-                            value={stats.newspapers}
-                            label={t("newspaper")}
-                            color="purple"
-                        />
-                        <StatItem
-                            icon={<Activity size={18} />}
-                            value={stats.activeRegions}
-                            label={t("coveredRegion")}
-                            color="emerald"
-                        />
+                    {/* Mini Stats - Horizontally Scrollable on Mobile */}
+                    <div className="w-full md:w-auto">
+                        <div className="flex md:inline-flex bg-white rounded-2xl shadow-sm border border-slate-200 overflow-x-auto no-scrollbar snap-x snap-mandatory divide-x divide-slate-100 rtl:divide-x-reverse">
+                            <StatItem
+                                icon={<Building2 size={20} />}
+                                value={stats.total}
+                                label={t("mediaEntity")}
+                                color="blue"
+                            />
+                            <StatItem
+                                icon={<Newspaper size={20} />}
+                                value={stats.newspapers}
+                                label={t("newspaper")}
+                                color="purple"
+                            />
+                            <StatItem
+                                icon={<Activity size={20} />}
+                                value={stats.activeRegions}
+                                label={t("coveredRegion")}
+                                color="emerald"
+                            />
+                        </div>
                     </div>
                 </div>
 

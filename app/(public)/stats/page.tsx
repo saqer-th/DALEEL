@@ -148,50 +148,62 @@ export default function StatsPage() {
         <div className="bg-slate-50/50 min-h-screen pb-12 font-sans">
             <div className="container mx-auto px-4 py-8 max-w-7xl">
                 {/* Page Header */}
-                <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6 mt-4 md:mt-0">
                     <div>
-                        <h1 className="text-3xl font-bold text-slate-900 mb-2 flex items-center gap-3">
-                            <Activity className="text-blue-600" />
+                        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-3 flex items-center gap-4 tracking-tight">
+                            <div className="p-2 bg-blue-600 rounded-2xl text-white shadow-lg shadow-blue-600/20">
+                                <Activity size={32} />
+                            </div>
                             {t("statsTitle")}
                         </h1>
-                        <p className="text-slate-500 text-lg max-w-2xl">
+                        <p className="text-slate-500 text-lg md:text-xl font-medium max-w-2xl leading-relaxed">
                             {t("statsSubtitle")}
                         </p>
                     </div>
                 </div>
 
-                {/* KPI Section */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                    <KPICard
-                        title={t("kpiLicensed")}
-                        value={MOCK_MEDIA_ENTITIES.length}
-                        subtext={t("statEntity")}
-                        icon={FileText}
-                        trend="+12%"
-                        colorClass="bg-blue-50 text-blue-600"
-                    />
-                    <KPICard
-                        title={t("kpiRegions")}
-                        value={`${regionalData.filter(r => r.count > 0).length}`}
-                        subtext={t("statRegion")}
-                        icon={MapIcon}
-                        colorClass="bg-amber-50 text-amber-600"
-                    />
-                    <KPICard
-                        title={t("kpiActive")}
-                        value={`${Math.round((statusData[0].value / MOCK_MEDIA_ENTITIES.length) * 100)}%`}
-                        subtext={t("statMonitoring")}
-                        icon={CheckCircle2}
-                        trend="+5%"
-                        colorClass="bg-emerald-50 text-emerald-600"
-                    />
-                    <KPICard
-                        title={t("kpiFounders")}
-                        value={MOCK_FOUNDERS.length}
-                        subtext={t("founderRole")}
-                        icon={Users}
-                        colorClass="bg-purple-50 text-purple-600"
-                    />
+                {/* KPI Section - Horizontally Scrollable on Mobile */}
+                <div className="mb-10 -mx-4 px-4 md:mx-0 md:px-0">
+                    <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 overflow-x-auto md:overflow-visible no-scrollbar snap-x snap-mandatory pb-4 md:pb-0">
+                        <div className="min-w-[280px] md:min-w-0 flex-shrink-0 snap-center w-full md:w-auto">
+                            <KPICard
+                                title={t("kpiLicensed")}
+                                value={MOCK_MEDIA_ENTITIES.length}
+                                subtext={t("statEntity")}
+                                icon={FileText}
+                                trend="+12%"
+                                colorClass="bg-blue-50 text-blue-600"
+                            />
+                        </div>
+                        <div className="min-w-[280px] md:min-w-0 flex-shrink-0 snap-center w-full md:w-auto">
+                            <KPICard
+                                title={t("kpiRegions")}
+                                value={`${regionalData.filter(r => r.count > 0).length}`}
+                                subtext={t("statRegion")}
+                                icon={MapIcon}
+                                colorClass="bg-amber-50 text-amber-600"
+                            />
+                        </div>
+                        <div className="min-w-[280px] md:min-w-0 flex-shrink-0 snap-center w-full md:w-auto">
+                            <KPICard
+                                title={t("kpiActive")}
+                                value={`${Math.round((statusData[0].value / MOCK_MEDIA_ENTITIES.length) * 100)}%`}
+                                subtext={t("statMonitoring")}
+                                icon={CheckCircle2}
+                                trend="+5%"
+                                colorClass="bg-emerald-50 text-emerald-600"
+                            />
+                        </div>
+                        <div className="min-w-[280px] md:min-w-0 flex-shrink-0 snap-center w-full md:w-auto">
+                            <KPICard
+                                title={t("kpiFounders")}
+                                value={MOCK_FOUNDERS.length}
+                                subtext={t("statEntity")}
+                                icon={Users}
+                                colorClass="bg-purple-50 text-purple-600"
+                            />
+                        </div>
+                    </div>
                 </div>
 
                 {/* Charts Grid */}

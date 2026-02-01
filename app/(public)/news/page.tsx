@@ -24,7 +24,7 @@ const MOCK_NEWS = [
         source: "وكالة الأنباء السعودية (واس)",
         category: "tech",
         date: "منذ ساعتين",
-        image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=2070&auto=format&fit=crop",
         aiSummary: "تحليل: المبادرة تهدف لسد الفجوة في سوق العمل التقني، مع تركيز على المناطق الطرفية. التغطية الإيجابية بلغت 95%."
     },
     {
@@ -33,7 +33,7 @@ const MOCK_NEWS = [
         source: "صحيفة الاقتصادية",
         category: "economy",
         date: "منذ 4 ساعات",
-        image: "https://images.unsplash.com/photo-1611974765270-ca1258634369?q=80&w=2070&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=2070&auto=format&fit=crop",
         aiSummary: "تحليل: الانتعاش يعكس ثقة المستثمرين بعد إعلان النتائج الربعية. رصدنا تباين في توقعات المحللين."
     },
     {
@@ -87,19 +87,21 @@ export default function NewsPage() {
             <div className="container mx-auto px-4 py-8 max-w-7xl">
 
                 {/* Header */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 mt-4 md:mt-0">
                     <div>
-                        <h1 className="text-3xl font-bold text-slate-900 mb-2 flex items-center gap-3">
-                            <Newspaper className="text-blue-600" />
+                        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-3 flex items-center gap-4 tracking-tight">
+                            <div className="p-2 bg-blue-600 rounded-2xl text-white shadow-lg shadow-blue-600/20">
+                                <Newspaper size={32} />
+                            </div>
                             {t("newsTitle")}
                         </h1>
-                        <p className="text-slate-500 text-lg">
+                        <p className="text-slate-500 text-lg md:text-xl font-medium max-w-2xl leading-relaxed">
                             {t("brandSlogan")}
                         </p>
                     </div>
-                    <div className="flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-2 rounded-full border border-blue-100 mb-1">
-                        <Zap size={18} className="fill-blue-700" />
-                        <span className="text-sm font-bold">{t("aiPowered")}</span>
+                    <div className="flex items-center gap-2 bg-blue-50 text-blue-700 px-5 py-2.5 rounded-2xl border border-blue-100 self-start md:mb-1">
+                        <Zap size={18} className="text-blue-600" />
+                        <span className="text-sm font-black uppercase tracking-wider">AI Analysis Live</span>
                     </div>
                 </div>
 
@@ -184,7 +186,7 @@ export default function NewsPage() {
                         </div>
                     ))}
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }
